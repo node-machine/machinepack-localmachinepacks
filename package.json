@@ -30,6 +30,6 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:node-machine/machinepack-localmachinepacks.git"
   }
 }
