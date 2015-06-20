@@ -8,7 +8,7 @@
 Work with local machinepacks.
 
 
-## Installation &nbsp; [![NPM version](https://badge.fury.io/js/machinepack-localmachinepacks.svg)](http://badge.fury.io/js/machinepack-localmachinepacks) [![Build Status](https://travis-ci.org/mikermcneil/machinepack-localmachinepacks.png?branch=master)](https://travis-ci.org/mikermcneil/machinepack-localmachinepacks)
+## Installation &nbsp; [![NPM version](https://badge.fury.io/js/machinepack-localmachinepacks.svg)](http://badge.fury.io/js/machinepack-localmachinepacks) [![Build Status](https://travis-ci.org/node-machine/machinepack-localmachinepacks.png?branch=master)](https://travis-ci.org/node-machine/machinepack-localmachinepacks)
 
 ```sh
 $ npm install machinepack-localmachinepacks
@@ -26,5 +26,5 @@ Learn more at <a href="http://node-machine.org/implementing/FAQ" title="Machine 
 
 ## License
 
-MIT &copy; 2015 contributors
+MIT &copy; 2015 Mike McNeil and contributors
 

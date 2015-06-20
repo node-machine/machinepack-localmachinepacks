@@ -10,13 +10,13 @@
     "machines",
     "machinepack"
   ],
-  "author": "",
+  "author": "Mike McNeil",
   "license": "MIT",
   "dependencies": {
     "machine": "^9.0.0"
   },
   "devDependencies": {
-    "test-machinepack-mocha": "^0.2.2"
+    "test-machinepack-mocha": "^2.0.0"
   },
   "machinepack": {
     "friendlyName": "Local Machinepacks",
@@ -26,7 +26,7 @@
       "prompt-about-new-machinepack",
       "prompt-for-input-vals"
     ],
-    "testsUrl": "https://travis-ci.org/"
+    "testsUrl": "https://travis-ci.org/node-machine/machinepack-localmachinepacks"
   },
   "repository": {
     "type": "git",
