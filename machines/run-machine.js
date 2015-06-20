@@ -60,7 +60,7 @@ module.exports = {
 
     // Dependencies
     var _ = require('lodash');
-    var thisPack = require('../');
+    var Machines = require('machinepack-machines');
 
 
     // Require the machinepack
@@ -84,7 +84,7 @@ module.exports = {
     }
 
     // Now run the instantiated machine using the provided input values.
-    thisPack.runInstantiatedMachine({
+    Machines.runInstantiatedMachine({
       machineInstance: machineInstance,
       inputValues: inputs.inputValues
     }).exec({

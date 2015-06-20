@@ -1,8 +1,11 @@
 module.exports = {
 
+
   friendlyName: 'Add new machine',
 
+
   description: 'Add a new machine to a machinepack on your local filesystem.',
+
 
   inputs: {
 
@@ -47,13 +50,14 @@ module.exports = {
     },
 
     inputs: {
-      typeclass: 'dictionary'
+      example: {}
     },
 
     exits: {
-      typeclass: 'dictionary'
+      example: {}
     }
   },
+
 
   exits: {
     error: {
@@ -66,6 +70,7 @@ module.exports = {
       description: 'New machine was generated successfully.'
     }
   },
+
 
   fn: function (inputs, exits){
 
@@ -156,4 +161,6 @@ module.exports = {
     });
 
   }
+
+
 };

@@ -11,7 +11,6 @@ module.exports = {
       example: [{
         name: 'foobar',
         example: 'here is what a foobar should look like',
-        typeclass: 'dictionary',
         description: 'The foobar that will be used to foo the bar (i.e. input description)',
         expectType: 'json'
       }]

@@ -54,8 +54,7 @@ module.exports = {
 
     idempotent: {
       description: 'Whether or not running this machine multiple times achieves different results (ceteris paribus.)',
-      example: false,
-      defaultsTo: false
+      example: false
     },
 
     environment: {
@@ -66,12 +65,12 @@ module.exports = {
 
     inputs: {
       description: 'The `inputs` definition object for this machine.',
-      typeclass: 'dictionary'
+      example: {}
     },
 
     exits: {
       description: 'The `exits` definition object for this machine.',
-      typeclass: 'dictionary'
+      example: {}
     },
 
   },

@@ -55,12 +55,12 @@ module.exports = {
 
     inputs: {
       description: 'A dictionary specifying the inputs that the machine accepts at runtime.',
-      typeclass: 'dictionary'
+      example: {}
     },
 
     exits: {
       description: 'A dictionary specifying the exit scenarios played out by the machine at runtime.',
-      typeclass: 'dictionary'
+      example: {}
     }
   },
 
