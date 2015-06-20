@@ -1,0 +1,35 @@
+{
+  "name": "machinepack-localmachinepacks",
+  "version": "0.1.0",
+  "description": "Work with local machinepacks.",
+  "scripts": {
+    "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
+  },
+  "keywords": [
+    "Local Machinepacks",
+    "machines",
+    "machinepack"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "machine": "^9.0.0"
+  },
+  "devDependencies": {
+    "test-machinepack-mocha": "^0.2.2"
+  },
+  "machinepack": {
+    "friendlyName": "Local Machinepacks",
+    "machineDir": "machines/",
+    "machines": [
+      "prompt-about-new-machine",
+      "prompt-about-new-machinepack",
+      "prompt-for-input-vals"
+    ],
+    "testsUrl": "https://travis-ci.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
