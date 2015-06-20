@@ -1,0 +1,12 @@
+{
+  "machine": "build-machine-code",
+  "expectations": [
+    {
+      "using": {
+        "friendlyName": "Do stuff",
+        "description": "Do stuff, then do things."
+      },
+      "outcome": "success"
+    }
+  ]
+}

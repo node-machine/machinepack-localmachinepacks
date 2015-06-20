@@ -22,9 +22,26 @@
     "friendlyName": "Local Machinepacks",
     "machineDir": "machines/",
     "machines": [
-      "prompt-about-new-machine",
       "prompt-about-new-machinepack",
-      "prompt-for-input-vals"
+      "prompt-about-new-machine",
+      "get-machines-dir",
+      "remove-machine",
+      "rename-machine",
+      "copy-machine",
+      "list-machines",
+      "run-machine",
+      "read-machine-file",
+      "write-machine-file",
+      "build-machine-code",
+      "prompt-for-input-vals",
+      "add-machine",
+      "run-machine-interactive",
+      "parse-machinepack-metadata",
+      "initialize-machinepack",
+      "read-package-json",
+      "interpret-machine-module",
+      "scaffold-tests",
+      "add-test"
     ],
     "testsUrl": "https://travis-ci.org/node-machine/machinepack-localmachinepacks"
   },

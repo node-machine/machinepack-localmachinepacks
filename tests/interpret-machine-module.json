@@ -1,0 +1,17 @@
+{
+  "machine": "interpret-machine-module",
+  "expectations": [
+    {
+      "using": {
+        "module": "module.exports = { inputs: {}, defaultExit: 'thennn', exits: { thennn: {}, error: {} }, fn: 'function (inputs, exits){}' };"
+      },
+      "outcome": "success"
+    },
+    {
+      "using": {
+        "module": "module.exports = { inputs: {}, exits: { success: {}, error: {} }, fn: 'function (inputs, exits){}' };"
+      },
+      "outcome": "success"
+    }
+  ]
+}
