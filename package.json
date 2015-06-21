@@ -1,6 +1,6 @@
 {
   "name": "machinepack-localmachinepacks",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Work with local machinepacks.",
   "scripts": {
     "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
