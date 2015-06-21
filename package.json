@@ -52,7 +52,8 @@
       "read-package-json",
       "interpret-machine-module",
       "scaffold-tests",
-      "add-test"
+      "add-test",
+      "browse-to-pack-url"
     ],
     "testsUrl": "https://travis-ci.org/node-machine/machinepack-localmachinepacks"
   },
