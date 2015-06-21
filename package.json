@@ -24,6 +24,7 @@
     "machinepack-machines": "^6.0.0",
     "machinepack-npm": "^3.0.0",
     "machinepack-util": "^4.4.0",
+    "open": "0.0.5",
     "rttc": "^7.0.1"
   },
   "devDependencies": {

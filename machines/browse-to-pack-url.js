@@ -40,11 +40,11 @@ module.exports = {
 
   fn: function (inputs, exits){
 
-    var Machines = require('machinepack-localmachinepacks');
+    var thisPack = require('../');
     var util = require('util');
     var browseToUrl = require('open');
 
-    Machines.readPackageJson({
+    thisPack.readPackageJson({
       dir: process.cwd()
     }).exec({
       error: exits.error,
