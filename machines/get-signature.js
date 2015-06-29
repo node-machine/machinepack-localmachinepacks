@@ -78,7 +78,12 @@ module.exports = {
                   schema: {},
                 }).exec({
                   error: _exits.error,
-                  success: _exits.success
+                  success: function  (machineDef) {
+                    // Make sure machineDef has an identity:
+                    machineDef.identity = machineDef.identity || machineIdentity;
+
+                    _exits.success(machineDef);
+                  }
                 });
               }
             });
