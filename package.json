@@ -54,7 +54,8 @@
       "interpret-machine-module",
       "scaffold-tests",
       "add-test",
-      "browse-to-pack-url"
+      "browse-to-pack-url",
+      "get-signature"
     ],
     "testsUrl": "https://travis-ci.org/node-machine/machinepack-localmachinepacks"
   },
