@@ -40,6 +40,7 @@ module.exports = {
 
     var path = require('path');
     var Arrays = require('machinepack-arrays');
+    var JSON = require('machinepack-json');
     var Util = require('machinepack-util');
     var thisPack = require('../');
 
@@ -58,12 +59,24 @@ module.exports = {
           array: packMetadata.machines,
           itemExample: {},
           iteratee: function(_inputs, _exits) {
+
+            var machineIdentity = _inputs.item;
+
             // Read machine file located at the specified path into a JSON string w/ stringified functions.
             thisPack.readMachineFile({
               source: path.resolve(inputs.dir, packMetadata.machineDir, machineIdentity + '.js')
             }).exec({
               error: _exits.error,
-              success: _exits.success
+              success: function (jsonStr){
+                // Parse machine data from the JSON-encoded string.
+                JSON.parse({
+                  json: jsonStr,
+                  schema: {},
+                }).exec({
+                  error: _exits.error,
+                  success: _exits.success
+                });
+              }
             });
           }
         }).exec({
@@ -92,8 +105,7 @@ module.exports = {
 
       }
     });
-  },
-
+  }
 
 
 };

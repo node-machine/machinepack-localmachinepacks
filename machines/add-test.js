@@ -92,8 +92,8 @@ module.exports = {
     }
 
     // Generate unique string from the provided config (`using`).
-    var newExpectationConfigHash = Util.hashDictionary({
-      dictionary: inputs.using,
+    var newExpectationConfigHash = Util.hash({
+      value: inputs.using,
     }).execSync();
 
     // console.log('reading test suite from %s',pathToTestSuite);
@@ -117,8 +117,8 @@ module.exports = {
 
         // check each test against the provided config
         var matchingExpectation = _.find(suite.expectations, function (expectation){
-          var hash = Util.hashDictionary({
-            dictionary: expectation.using,
+          var hash = Util.hash({
+            value: expectation.using,
           }).execSync();
           return newExpectationConfigHash === hash;
         });
