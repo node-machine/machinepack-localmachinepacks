@@ -41,13 +41,13 @@ module.exports = {
     var path = require('path');
     var Arrays = require('machinepack-arrays');
     var Util = require('machinepack-util');
-    var LocalMachinepacks = require('machinepack-localmachinepacks');
+    var thisPack = require('../');
 
     // Resolve absolute path
     inputs.dir = path.resolve(process.cwd(), inputs.dir);
 
     // Read local pack
-    LocalMachinepacks.readPackageJson({
+    thisPack.readPackageJson({
       dir: inputs.dir
     }).exec({
       error: exits.error,
@@ -59,7 +59,7 @@ module.exports = {
           itemExample: {},
           iteratee: function(_inputs, _exits) {
             // Read machine file located at the specified path into a JSON string w/ stringified functions.
-            LocalMachinepacks.readMachineFile({
+            thisPack.readMachineFile({
               source: path.resolve(inputs.dir, packMetadata.machineDir, machineIdentity + '.js')
             }).exec({
               error: _exits.error,
