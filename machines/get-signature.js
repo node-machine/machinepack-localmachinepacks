@@ -28,7 +28,11 @@ module.exports = {
       example: {
         pack: {},
         machines: [{}],
-        hash: 'a8319azj39$29130nfan3'
+        packHash: 'a8319azj39$29130nfan3',
+        machineHashes: [{
+          machine: 'some-machine-identity',
+          hash: '1390ba9z9140$1-3a914n4'
+        }]
       },
       description: 'Done.',
     },
@@ -83,19 +87,36 @@ module.exports = {
           error: exits.error,
           success: function(machineDefs) {
 
-            // Generate unique hash
+            // Generate unique hash for each machine, and for the top-level pack metadata.
             Util.hash({
-              value: {
-                pack: packMetadata,
-                machines: machineDefs
-              },
+              value: packMetadata,
             }).exec({
               error: exits.error,
-              success: function(hash){
-                return exits.success({
-                  pack: packMetadata,
-                  machines: machineDefs,
-                  hash: hash
+              success: function(packHash){
+
+                Arrays.map({
+                  array: machineDefs,
+                  itemExample: {
+                    machine: 'some-machine-identity',
+                    hash: 'a193fha9319vazm31$139a0'
+                  },
+                  iteratee: function(_inputs, _exits) {
+                    var hash = Util.hash({ value: _inputs.item }).execSync();
+                    return _exits.success({
+                      hash: hash,
+                      machine: _inputs.item.identity
+                    });
+                  }
+                }).exec({
+                  error: exits.error,
+                  success: function (machineHashes){
+                    return exits.success({
+                      pack: packMetadata,
+                      machines: machineDefs,
+                      machineHashes: machineHashes,
+                      packHash: packHash
+                    });
+                  }
                 });
               }
             });
