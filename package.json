@@ -19,7 +19,7 @@
     "inquirer": "^0.8.0",
     "lodash": "^3.9.3",
     "machine": "^10.3.1",
-    "machinepack-arrays": "^4.0.1",
+    "machinepack-arrays": "^4.2.0",
     "machinepack-fs": "^2.3.0",
     "machinepack-javascript": "^0.1.8",
     "machinepack-json": "^1.1.3",

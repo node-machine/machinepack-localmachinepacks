@@ -71,6 +71,11 @@ module.exports = {
               source: path.resolve(inputs.dir, packMetadata.machineDir, machineIdentity + '.js')
             }).exec({
               error: _exits.error,
+              notFound: function (){
+                // If an expected machine module is missing (i.e. it was referenced by
+                // `machinepacks.machines` in the package.json file), then just ignore it.
+                return _exits.exclude();
+              },
               success: function (jsonStr){
                 // Parse machine data from the JSON-encoded string.
                 JSON.parse({
@@ -82,7 +87,7 @@ module.exports = {
                     // Make sure machineDef has an identity:
                     machineDef.identity = machineDef.identity || machineIdentity;
 
-                    _exits.success(machineDef);
+                    return _exits.success(machineDef);
                   }
                 });
               }
