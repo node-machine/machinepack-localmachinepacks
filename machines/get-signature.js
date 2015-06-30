@@ -70,7 +70,13 @@ module.exports = {
             thisPack.readMachineFile({
               source: path.resolve(inputs.dir, packMetadata.machineDir, machineIdentity + '.js')
             }).exec({
-              error: _exits.error,
+              error: function (err) {
+                // If an expected machine module is corrupted (i.e. it was referenced by
+                // `machinepacks.machines` in the package.json file, but the file is all
+                // jacked up), then ignore it, but also log a warning.
+                console.warn('Ignoring local machine ('+machineIdentity+') b/c it seems to be corrupted. Details:\n',err);
+                return _exits.exclude();
+              },
               notFound: function (){
                 // If an expected machine module is missing (i.e. it was referenced by
                 // `machinepacks.machines` in the package.json file), then just ignore it.
