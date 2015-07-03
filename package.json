@@ -58,7 +58,7 @@
       "add-test",
       "browse-to-pack-url",
       "get-signature",
-      "write-machinepack"
+      "write-pack"
     ],
     "testsUrl": "https://travis-ci.org/node-machine/machinepack-localmachinepacks"
   },
