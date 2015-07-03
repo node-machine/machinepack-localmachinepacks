@@ -17,28 +17,7 @@ module.exports = {
 
     packData: {
       description: 'The metadata and code for the machinepack and its machines.',
-      example: {
-        friendlyName: 'Foo',
-        description: 'Node.js utilities for working with foos.',
-        author: 'Marty McFly <marty@mcfly.com>',
-        license: 'MIT',
-        version: '0.5.17',
-        npmPackageName: 'machinepack-do-stuff',
-        dependencies: [ { name: 'lodash', semverRange: '^2.4.1' } ],
-        postInstallScript: 'node ./postinstall.js',
-        machines: [{
-          identity: 'do-stuff',
-          friendlyName: 'Do stuff',
-          description: 'Do stuff given other stuff.',
-          extendedDescription: 'Do stuff to the stuff given the other stuff.  If the stuff doesn\'t get done the first time, try it again up to 50 times using an exponential backoff strategy.',
-          cacheable: false,
-          sync: false,
-          idempotent: false,
-          inputs: {}, //=> { foo: { friendlyName: 'Foo', example: 'bar' } }
-          exits: {}, //=>{ error: { friendlyName: 'error', example: null } }
-          fn: '/*the stringified machine fn contents, without the function signature*/',
-        }]
-      },
+      example: {},
       required: true
     },
 
@@ -66,6 +45,7 @@ module.exports = {
     var path = require('path');
     var async = require('async');
     var _ = require('lodash');
+    var rttc = require('rttc');
     var Filesystem = require('machinepack-fs');
     var thisPack = require('../');
 
@@ -73,6 +53,30 @@ module.exports = {
     // `packData` contains basic metadata about the machinepack as well as
     // complete metadata about each machine-- including the `fn` (implementation code)
     var packData = inputs.packData;
+
+    // Ensure packData is valid using an example schema.
+    packData = rttc.coerce(rttc.infer({
+      friendlyName: 'Foo',
+      description: 'Node.js utilities for working with foos.',
+      author: 'Marty McFly <marty@mcfly.com>',
+      license: 'MIT',
+      version: '0.5.17',
+      npmPackageName: '@treelinehq/marty/machinepack-do-stuff',
+      dependencies: [ { name: 'lodash', semverRange: '^2.4.1' } ],
+      postInstallScript: 'node ./postinstall.js',
+      machines: [{
+        identity: 'do-stuff',
+        friendlyName: 'Do stuff',
+        description: 'Do stuff given other stuff.',
+        extendedDescription: 'Do stuff to the stuff given the other stuff.  If the stuff doesn\'t get done the first time, try it again up to 50 times using an exponential backoff strategy.',
+        cacheable: false,
+        sync: false,
+        idempotent: false,
+        inputs: {}, //=> { foo: { friendlyName: 'Foo', example: 'bar' } }
+        exits: {}, //=>{ error: { friendlyName: 'error', example: null } }
+        fn: '/*the stringified machine fn contents, without the function signature*/',
+      }]
+    }), packData);
 
     // Just in case...
     // (i) Lowercase the machine identities
@@ -86,8 +90,8 @@ module.exports = {
 
     // Determine the dictionary that will become the package.json file.
     var pkgMetadata = {
-      private: true,
       name: packData.npmPackageName,
+      private: true,
       version: packData.version || '0.1.0',
       description: packData.description || '',
       keywords: [

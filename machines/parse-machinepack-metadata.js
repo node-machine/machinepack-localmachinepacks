@@ -170,6 +170,7 @@ module.exports = {
     }
 
     // Ensure minimum required machinepack metadata is present.
+    // (i.e. no empty strings allowed)
     if (!machinepack.identity || !machinepack.machineDir) {
       return exits.notMachinepack();
     }
