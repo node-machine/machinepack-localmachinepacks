@@ -25,6 +25,12 @@ module.exports = {
       description: 'Whether to force/overwrite files that already exist at the destination',
       example: true,
       defaultsTo: false
+    },
+
+    ensureMachineDep: {
+      description: 'Whether or not to add a dependency on `machine` to the generated pack if it doesn\'t have one.  Enabled by default.',
+      example: true,
+      defaultsTo: true,
     }
 
   },
@@ -47,6 +53,7 @@ module.exports = {
     var _ = require('lodash');
     var rttc = require('rttc');
     var Filesystem = require('machinepack-fs');
+    var NPM = require('machinepack-npm');
     var thisPack = require('../');
 
 
@@ -93,6 +100,17 @@ module.exports = {
     // (iii) Use the `id` as the npm package name if no package name is provided:
     packData.npmPackageName = packData.npmPackageName || packData.id;
 
+    // (iv) Ensure `machine` is included as an NPM dependency, unless this check
+    //      is explicitly disabled.
+    if (inputs.ensureMachineDep) {
+      if (!_.find(packData.dependencies, { name: 'machine' })) {
+        packData.dependencies.push({name: 'machine', semverRange: '^10.0.0'});
+      }
+    }
+
+    // TODO: enforce all 4 things (^^) in the API when `npmPackageName`s
+    // are initially set or modified (including if/when they are inferred)
+
     // Determine the dictionary that will become the package.json file.
     var pkgMetadata = {
       name: packData.npmPackageName,
@@ -106,12 +124,9 @@ module.exports = {
       ],
       author: packData.author,
       license: packData.license,
-      dependencies: _.reduce(packData.dependencies, function (memo, dependency) {
-        memo[dependency.name] = dependency.semverRange;
-        return memo;
-      }, {
-        machine: '^10.0.0'
-      }),
+      dependencies: NPM.unarrayifyDependencies({
+        dependencies: packData.dependencies
+      }).execSync(),
       devDependencies: {},
       scripts: {},
       machinepack: {
