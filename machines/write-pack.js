@@ -61,7 +61,7 @@ module.exports = {
       author: 'Marty McFly <marty@mcfly.com>',
       license: 'MIT',
       version: '0.5.17',
-      id: '@treelinehq/marty/machinepack-do-stuff',
+      id: 'marty/machinepack-do-stuff',
       npmPackageName: '@treelinehq/marty/machinepack-do-stuff',
       dependencies: [ { name: 'lodash', semverRange: '^2.4.1' } ],
       postInstallScript: 'node ./postinstall.js',
