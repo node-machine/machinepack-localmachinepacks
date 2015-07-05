@@ -65,6 +65,7 @@ module.exports = {
       npmPackageName: '@treelinehq/marty/machinepack-do-stuff',
       dependencies: [ { name: 'lodash', semverRange: '^2.4.1' } ],
       postInstallScript: 'node ./postinstall.js',
+      indexJsCode: 'module.exports = require(\'machinepack-util\');',
       machines: [{
         identity: 'do-stuff',
         friendlyName: 'Do stuff',
@@ -122,7 +123,8 @@ module.exports = {
     };
 
 
-    // If `postInstallScript` is provided, compile a postinstall script.
+    // If `postInstallScript` is provided and not an empty string,
+    // then compile a postinstall script directly in the package.json file.
     if (inputs.packData.postInstallScript) {
       pkgMetadata.scripts.postinstall = inputs.packData.postInstallScript;
     }
@@ -140,11 +142,17 @@ module.exports = {
       },
       success: function (){
 
+        // Now write an `index.js` file.
         var indexJsPath = path.resolve(inputs.destination,'index.js');
-        var indexJsCode = '// This is a boilerplate file which should not need to be changed.\nmodule.exports = require(\'machine\').pack({\n  pkg: require(\'./package.json\'),\n  dir: __dirname\n});\n';
+
+        // If custom `indexJsCode` was provided and is not an empty string (""),
+        // write _it_ instead of the default (this is useful for things like aliasing
+        // other packs, exporting packs w/ browserify support, etc.)
+        packData.indexJsCode = packData.indexJsCode || '// This is a boilerplate file which should not need to be changed.\nmodule.exports = require(\'machine\').pack({\n  pkg: require(\'./package.json\'),\n  dir: __dirname\n});\n';
+
         Filesystem.write({
           destination: indexJsPath,
-          string: indexJsCode,
+          string: packData.indexJsCode,
           force: inputs.force
         }).exec({
           error: exits.error,
