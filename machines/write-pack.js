@@ -89,6 +89,9 @@ module.exports = {
     //      (if so, then remove them)
     packData.machines = _.uniq(packData.machines, 'identity');
 
+    // (iii) Use the `id` as the npm package name if no package name is provided:
+    packData.npmPackageName = packData.npmPackageName || packData.id;
+
     // Determine the dictionary that will become the package.json file.
     var pkgMetadata = {
       name: packData.npmPackageName,
