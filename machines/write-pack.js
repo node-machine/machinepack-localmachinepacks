@@ -111,6 +111,18 @@ module.exports = {
     // TODO: enforce all 4 things (^^) in the API when `npmPackageName`s
     // are initially set or modified (including if/when they are inferred)
 
+    // Names with > 1 level of path separators are not permitted, so transform
+    // them with dashes
+    var npmPackageNamePieces = packData.npmPackageName.split('/');
+    if (npmPackageNamePieces.length > 1) {
+      packData.npmPackageName = npmPackageNamePieces.shift() + '/' + npmPackageNamePieces.join('--');
+    }
+
+    // Names with > 0 level of path separators need an @ symbol at the top
+    if (packData.npmPackageName.split('/').length > 1 && packData.npmPackageName[0] !== '@') {
+      packData.npmPackageName = '@' + packData.npmPackageName;
+    }
+
     // Determine the dictionary that will become the package.json file.
     var pkgMetadata = {
       name: packData.npmPackageName,
