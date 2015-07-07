@@ -102,7 +102,7 @@ module.exports = {
     var fn;
     if (inputs.fn) {
       try {
-        fn = new Function('inputs', 'exits', inputs.fn);
+        fn = new Function('inputs', 'exits', 'env', inputs.fn);
         fn = fn.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
       }
       catch (e){
