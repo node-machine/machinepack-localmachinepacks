@@ -156,7 +156,7 @@ module.exports = {
         // strip stuff wrapped in parentheses
         _variableName = _variableName.replace(/\([^\(\)]*\)/g, '');
         // strip any weird characters
-        _variableName = require('machinepack-javascript').convertToEcmascriptCompatibleVarname({
+        _variableName = require('machinepack-javascript').coerceVarname({
           string: _variableName
         }).execSync();
         // capitalize the first letter

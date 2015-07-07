@@ -69,7 +69,7 @@ module.exports = {
       metadata.identity = metadata.identity.toLowerCase();
 
       // Given a string of dash-delimited words, return a similar version of the string, but which is camel-cased and otherwise stripped of special characters, whitespace, etc. so that it is usable as an ECMAScript variable.
-      Javascript.convertToEcmascriptCompatibleVarname({
+      Javascript.coerceVarname({
         string: metadata.identity
       }).exec({
 

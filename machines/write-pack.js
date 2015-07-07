@@ -54,6 +54,7 @@ module.exports = {
     var rttc = require('rttc');
     var Filesystem = require('machinepack-fs');
     var NPM = require('machinepack-npm');
+    var Javascript = require('machinepack-javascript');
     var thisPack = require('../');
 
 
@@ -204,6 +205,10 @@ module.exports = {
                   inputs: thisMachine.inputs,
                   exits: thisMachine.exits,
                   fn: thisMachine.fn
+                }).execSync();
+
+                machineModuleCode = Javascript.beautify({
+                  code: machineModuleCode
                 }).execSync();
 
                 // Write the machine file
