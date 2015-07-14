@@ -125,10 +125,9 @@ module.exports = {
             inputDef.validate = inputDef.validate.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
         }
 
-        // Hydrate and then dehydrate any functions in the `defaultsTo`:
+        // Hydrate any functions in the `defaultsTo`:
         if (inputDef.defaultsTo) {
           inputDef.defaultsTo = rttc.hydrate(inputDef.defaultsTo, rttc.infer(inputDef.example));
-          inputDef.defaultsTo = rttc.dehydrate(inputDef.defaultsTo);
         }
 
         return inputDef;
@@ -178,14 +177,14 @@ module.exports = {
     }
     code += util.format('  inputs: {%s\n\n  },\n\n\n', _.reduce(inputs.inputs||{}, function (memo, def, name){
       memo += util.format('\n\n    %s: {%s\n    },', name, _.reduce(def, function (submemo, value, key){
-        submemo += util.format('\n      %s: %s,', key, util.inspect(value, false, null));
+        submemo += util.format('\n      %s: %s,', key, rttc.compile(value));
         return submemo;
       },''));
       return memo;
     }, '')); //util.inspect(inputs.inputs||{}, false, null).replace(/\n/g,'\n\n  '));
     code += util.format('  exits: {%s\n\n  },\n\n\n', _.reduce(inputs.exits||{}, function (memo, def, name){
       memo += util.format('\n\n    %s: {%s\n    },', name, _.reduce(def, function (submemo, value, key){
-        submemo += util.format('\n      %s: %s,', key, util.inspect(value, false, null));
+        submemo += util.format('\n      %s: %s,', key, rttc.compile(value));
         return submemo;
       },''));
       return memo;
