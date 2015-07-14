@@ -102,13 +102,12 @@ module.exports = {
     var rttc = require('rttc');
     var _ = require('lodash');
 
-    // Wrap any `getExample` function strings in a function wrapper, convert to a real
-    // js function, then toString again.
+    // Wrap any `getExample` function strings in a function wrapper, and convert
+    // to a real js function.
     try {
       inputs.exits = _.mapValues(inputs.exits, function (exitDef, exitId){
         if (_.isString(exitDef.getExample)) {
           exitDef.getExample = new Function('inputs','env', exitDef.getExample);
-          exitDef.getExample = exitDef.getExample.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
         }
         return exitDef;
       });
@@ -118,12 +117,11 @@ module.exports = {
     }
 
     // Wrap any `validate` or `defaultsTo` function strings in a function wrapper,
-    // convert to a real js function, then toString again.
+    // and convert to a real js function.
     try {
       inputs.inputs = _.mapValues(inputs.inputs, function (inputDef, inputId){
         if (_.isString(inputDef.validate)) {
             inputDef.validate = new Function('inputs','env', inputDef.validate);
-            inputDef.validate = inputDef.validate.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
         }
 
         // Hydrate any functions in the `defaultsTo`:

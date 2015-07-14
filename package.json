@@ -27,7 +27,7 @@
     "machinepack-npm": "^5.1.0",
     "machinepack-util": "^5.0.1",
     "open": "0.0.5",
-    "rttc": "^7.0.1"
+    "rttc": "^8.0.0"
   },
   "devDependencies": {
     "test-machinepack-mocha": "^2.1.1"
