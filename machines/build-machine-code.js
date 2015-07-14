@@ -125,9 +125,10 @@ module.exports = {
             inputDef.validate = inputDef.validate.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
         }
 
-        // Hydrate and then toString any functions in the `defaultsTo`:
+        // Hydrate and then dehydrate any functions in the `defaultsTo`:
         if (inputDef.defaultsTo) {
           inputDef.defaultsTo = rttc.hydrate(inputDef.defaultsTo, rttc.infer(inputDef.example));
+          inputDef.defaultsTo = rttc.dehydrate(inputDef.defaultsTo);
         }
 
         return inputDef;
