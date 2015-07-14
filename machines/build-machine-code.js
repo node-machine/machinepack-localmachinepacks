@@ -113,6 +113,7 @@ module.exports = {
       fn = new Function('inputs', 'exits', util.format('  return exits.%s();', 'success'));
       fn = fn.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
     }
+    console.log(util.inspect(inputs,{depth:null}));
 
     var code = 'module.exports = {\n\n\n';
     code += util.format('  friendlyName: %s,\n\n\n', util.inspect(inputs.friendlyName));

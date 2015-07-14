@@ -86,7 +86,8 @@ module.exports = {
         exits: {}, //=>{ error: { friendlyName: 'error', example: null } }
         fn: '/*the stringified machine fn contents, without the function signature*/',
       }]
-    }), packData);
+    }), rttc.dehydrate(packData, true));
+    // ^Note that we dehydrate before coercing in order to ensure functions are stringified.
 
     // Just in case...
     // (i) Lowercase the machine identities
