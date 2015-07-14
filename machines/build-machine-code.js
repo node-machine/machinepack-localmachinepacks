@@ -82,6 +82,9 @@ module.exports = {
       description: 'Unexpected error occurred.',
     },
 
+    couldNotParseFnInsideInput: {},
+    couldNotParseFnInsideExit: {},
+
     couldNotParseFn: {
       description: 'The provided `fn` could not be parsed as a function.'
     },
@@ -98,6 +101,42 @@ module.exports = {
     var util = require('util');
     var _ = require('lodash');
 
+    // Wrap any `getExample` function strings in a function wrapper, convert to a real
+    // js function, then toString again.
+    try {
+      inputs.exits = _.mapObject(inputs.exits, function (exitDef, exitId){
+        if (_.isString(exitDef.getExample)) {
+          exitDef.getExample = new Function('inputs','env', exitDef.getExample);
+          exitDef.getExample = exitDef.getExample.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
+        }
+        return exitDef;
+      });
+    }
+    catch (e){
+      return exits.couldNotParseFnInsideExit(e);
+    }
+
+    // Wrap any `validate` or `defaultsTo` function strings in a function wrapper,
+    // convert to a real js function, then toString again.
+    try {
+      inputs.inputs = _.mapObject(inputs.inputs, function (inputDef, inputId){
+        if (_.isString(inputDef.validate)) {
+            inputDef.validate = new Function('inputs','env', inputDef.validate);
+            inputDef.validate = inputDef.validate.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
+        }
+
+        // Hydrate and then toString any functions in the `defaultsTo`:
+        if (inputDef.defaultsTo) {
+          inputDef.defaultsTo = rttc.hydrate(inputDef.defaultsTo, rttc.infer(inputDef.example));
+        }
+
+        return inputDef;
+      });
+    }
+    catch (e){
+      return exits.couldNotParseFnInsideInput(e);
+    }
+
     // Parse encoded `fn` to a real JavaScript function, then `toString` it again.
     var fn;
     if (inputs.fn) {
@@ -113,7 +152,7 @@ module.exports = {
       fn = new Function('inputs', 'exits', util.format('  return exits.%s();', 'success'));
       fn = fn.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
     }
-    console.log(util.inspect(inputs,{depth:null}));
+    // console.log('*********** BUILDING MACHINE CODE ************',util.inspect(inputs,{depth:null}));
 
     var code = 'module.exports = {\n\n\n';
     code += util.format('  friendlyName: %s,\n\n\n', util.inspect(inputs.friendlyName));
