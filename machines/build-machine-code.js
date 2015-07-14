@@ -99,6 +99,7 @@ module.exports = {
   fn: function (inputs, exits){
 
     var util = require('util');
+    var rttc = require('rttc');
     var _ = require('lodash');
 
     // Wrap any `getExample` function strings in a function wrapper, convert to a real
