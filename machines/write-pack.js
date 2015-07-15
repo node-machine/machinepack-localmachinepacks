@@ -82,6 +82,7 @@ module.exports = {
         cacheable: false,
         sync: false,
         idempotent: false,
+        environment: ['sails'],
         inputs: {}, //=> { foo: { friendlyName: 'Foo', example: 'bar' } }
         exits: {}, //=>{ error: { friendlyName: 'error', example: null } }
         fn: '/*the stringified machine fn contents, without the function signature*/',
@@ -203,6 +204,9 @@ module.exports = {
                   friendlyName: thisMachine.friendlyName || thisMachine.identity,
                   description: thisMachine.description,
                   extendedDescription: thisMachine.extendedDescription,
+                  cacheable: thisMachine.cacheable,
+                  environment: thisMachine.environment,
+                  sync: thisMachine.sync,
                   inputs: thisMachine.inputs,
                   exits: thisMachine.exits,
                   fn: thisMachine.fn
