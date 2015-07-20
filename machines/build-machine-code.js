@@ -109,6 +109,14 @@ module.exports = {
         if (_.isString(exitDef.getExample)) {
           exitDef.getExample = new Function('inputs','env', exitDef.getExample);
         }
+        // Never include an `example` (or a substitute like `itemOf`) if this is the `error` exit
+        // (that's because it smashes the error instance and therefore the stack trace!)
+        if (exitId === 'error') {
+          delete exitDef.example;
+          delete exitDef.like;
+          delete exitDef.itemOf;
+          delete exitDef.getExample;
+        }
         return exitDef;
       });
     }
