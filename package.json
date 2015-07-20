@@ -18,7 +18,7 @@
     "debug": "^2.1.2",
     "inquirer": "^0.8.0",
     "lodash": "^3.9.3",
-    "machine": "^10.3.1",
+    "machine": "^11.0.1",
     "machinepack-arrays": "^4.2.0",
     "machinepack-fs": "^2.3.0",
     "machinepack-javascript": "^2.2.0",
@@ -27,7 +27,7 @@
     "machinepack-npm": "^5.1.0",
     "machinepack-util": "^5.0.1",
     "open": "0.0.5",
-    "rttc": "^8.0.0"
+    "rttc": "^8.1.5"
   },
   "devDependencies": {
     "test-machinepack-mocha": "^2.1.1"
