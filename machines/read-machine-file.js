@@ -27,7 +27,7 @@ module.exports = {
   fn: function(inputs, exits) {
 
     var Path = require('path');
-
+    var _ = require('lodash');
     var machinePath = Path.resolve(process.cwd(), inputs.source);
 
     // console.log(' •-> Reading machine file located @', machinePath);
