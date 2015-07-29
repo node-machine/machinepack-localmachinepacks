@@ -193,7 +193,11 @@ module.exports = {
     }, '')); //util.inspect(inputs.inputs||{}, false, null).replace(/\n/g,'\n\n  '));
     code += util.format('  exits: {%s\n\n  },\n\n\n', _.reduce(inputs.exits||{}, function (memo, def, name){
       memo += util.format('\n\n    %s: {%s\n    },', name, _.reduce(def, function (submemo, value, key){
-        submemo += util.format('\n      %s: %s,', key, rttc.compile(value));
+        if (key == 'getExample') {
+          submemo += util.format('\n      getExample: %s,', value.toString());
+        } else {
+          submemo += util.format('\n      %s: %s,', key, rttc.compile(value));
+        }
         return submemo;
       },''));
       return memo;
