@@ -40,7 +40,7 @@ module.exports = {
     // (not a real sandbox, just enough to reasonably catch weird stuff during development)
     var machineDef;
     try {
-      machineDef = require(machinePath);
+      machineDef = _.cloneDeep(require(machinePath));
 
       // TODO:
       // validate that no code exists outside module.exports
