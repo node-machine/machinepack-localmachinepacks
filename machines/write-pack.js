@@ -167,6 +167,9 @@ module.exports = {
 
     var packageJsonPath = path.resolve(inputs.destination,'package.json');
 
+    // If we're being asked to merge the dependencies sent with the changelog into the existing
+    // package.json dependencies dict, do so here (this is why we keep a separate dict under
+    // the "machinepack" key).  This way we don't lose things like Sails project dependencies.
     if (inputs.mergeDependencies) {
       try {
         pkgMetadata.dependencies = _.extend({}, require(packageJsonPath).dependencies, pkgMetadata.dependencies);
