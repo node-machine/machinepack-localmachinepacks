@@ -31,6 +31,12 @@ module.exports = {
       description: 'Whether or not to add a dependency on `machine` to the generated pack if it doesn\'t have one.  Enabled by default.',
       example: true,
       defaultsTo: true,
+    },
+
+    mergeDependencies: {
+      description: 'Whether the dependencies in the pack data should merge on top of existing dependencies (if any) instead of overwriting them',
+      example: true,
+      defaultsTo: false
     }
 
   },
@@ -159,8 +165,16 @@ module.exports = {
       pkgMetadata.scripts.postinstall = inputs.packData.postInstallScript;
     }
 
-    // Write the package.json file (and the empty folder)
     var packageJsonPath = path.resolve(inputs.destination,'package.json');
+
+    if (inputs.mergeDependencies) {
+      try {
+        pkgMetadata.dependencies = _.extend({}, require(packageJsonPath).dependencies, pkgMetadata.dependencies);
+      }
+      catch(e) {}
+    }
+
+    // Write the package.json file (and the empty folder)
     Filesystem.writeJson({
       destination: packageJsonPath,
       json: pkgMetadata,
