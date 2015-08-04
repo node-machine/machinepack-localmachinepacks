@@ -109,14 +109,6 @@ module.exports = {
     // (iii) Use the `id` as the npm package name if no package name is provided:
     packData.npmPackageName = packData.npmPackageName || packData.id;
 
-    // (iv) Ensure `machine` is included as an NPM dependency, unless this check
-    //      is explicitly disabled.
-    if (inputs.ensureMachineDep) {
-      if (!_.find(packData.dependencies, { name: 'machine' })) {
-        packData.dependencies.push({name: 'machine', semverRange: '^10.0.0'});
-      }
-    }
-
     // TODO: enforce all 4 things (^^) in the API when `npmPackageName`s
     // are initially set or modified (including if/when they are inferred)
 
@@ -175,6 +167,14 @@ module.exports = {
         pkgMetadata.dependencies = _.extend({}, require(packageJsonPath).dependencies, pkgMetadata.dependencies);
       }
       catch(e) {}
+    }
+
+    // (iv) Ensure `machine` is included as an NPM dependency, unless this check
+    //      is explicitly disabled.
+    if (inputs.ensureMachineDep) {
+      if (!pkgMetadata.dependencies.machine) {
+        pkgMetadata.dependencies.machine = '^11';
+      }
     }
 
     // Write the package.json file (and the empty folder)
