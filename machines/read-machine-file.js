@@ -32,8 +32,8 @@ module.exports = {
 
     // console.log(' •-> Reading machine file located @', machinePath);
 
-    // TODO: clear this part of the require cache
-    // ...
+    // Clear the machine out of the require cache, in case it's been modified.
+    delete require.cache[machinePath];
 
     // TODO:
     // psuedo-"sandbox" the require of this machine
