@@ -55,8 +55,8 @@ module.exports = {
       return exits.error(e);
     }
 
-    // Convert `fn` to string.
-    machineDef.fn = machineDef.fn.toString();
+    machineDef = require('rttc').dehydrate(machineDef, {allowNull: true});
+
     // (TODO: clean up function signature first.)
 
     // Encode as json
