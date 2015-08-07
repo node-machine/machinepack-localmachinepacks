@@ -101,6 +101,7 @@ module.exports = {
     var util = require('util');
     var rttc = require('rttc');
     var _ = require('lodash');
+    var Javascript = require('machinepack-javascript');
 
     // Wrap any `getExample` function strings in a function wrapper, and convert
     // to a real js function.
@@ -205,6 +206,8 @@ module.exports = {
     // code += util.format('  exits: %s,\n\n\n', util.inspect(inputs.exits||{success: {}, error: {}}, false, null).replace(/\n/g,'\n\n  '));
     code += util.format('  fn: %s,\n\n\n', fn);
     code += '\n};\n';
+
+    code = Javascript.beautify({code: code}).execSync();
 
     return exits.success(code);
 

@@ -231,10 +231,6 @@ module.exports = {
                   fn: thisMachine.fn
                 }).execSync();
 
-                machineModuleCode = Javascript.beautify({
-                  code: machineModuleCode
-                }).execSync();
-
                 // Write the machine file
                 Filesystem.write({
                   destination: machineModulePath,
