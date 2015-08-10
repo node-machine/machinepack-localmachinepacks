@@ -48,6 +48,10 @@ module.exports = {
           name: 'lodash',
           semverRange: '^2.4.1'
         }],
+        machineDependencies: [{
+          name: 'lodash',
+          semverRange: '^2.4.1'
+        }],
         license: 'MIT'
       }
     }
