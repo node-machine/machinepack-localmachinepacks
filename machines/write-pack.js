@@ -213,6 +213,12 @@ module.exports = {
             // Loop over each machine in the pack
             async.each(packData.machines, function (thisMachine, next){
 
+              // If this machine has been marked as already existing in the location,
+              // we can skip it.
+              if (thisMachine.unchanged) {
+                return next();
+              }
+
               try {
                 // Determine the path where the new module will be written
                 var machineModulePath = path.resolve(inputs.destination, 'machines', thisMachine.identity+'.js');
