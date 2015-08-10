@@ -165,6 +165,7 @@ module.exports = {
     // the "machinepack" key).  This way we don't lose things like Sails project dependencies.
     if (inputs.mergeDependencies) {
       try {
+        delete require.cache[packageJsonPath];
         pkgMetadata.dependencies = _.extend({}, require(packageJsonPath).dependencies, pkgMetadata.dependencies);
       }
       catch(e) {}
