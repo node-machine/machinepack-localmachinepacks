@@ -50,6 +50,10 @@ module.exports = {
           name: 'lodash',
           semverRange: '^2.4.1'
         }],
+        machineDependencies: [{
+          name: 'lodash',
+          semverRange: '^2.4.1'
+        }],
         license: 'MIT'
       }
     }
@@ -163,6 +167,8 @@ module.exports = {
         _variableName = _variableName[0].toUpperCase() + _variableName.slice(1);
         return _variableName;
       })();
+
+      machinepack.machineDependencies = latestVersion.machinepack.npmDependencies;
 
     }
     catch (e) {
