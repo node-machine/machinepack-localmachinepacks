@@ -32,6 +32,10 @@ module.exports = {
         machineHashes: [{
           machine: 'some-machine-identity',
           hash: '1390ba9z9140$1-3a914n4'
+        }],
+        npmDependencies: [{
+          name: 'lodash',
+          semverRange: '^3.9.0'
         }]
       },
       description: 'Done.',
@@ -126,11 +130,18 @@ module.exports = {
                 }).exec({
                   error: exits.error,
                   success: function (machineHashes){
+                    // The pack-specific dependencies may be stored in the machinepack.dependencies
+                    // key of the package.json.  Having them stored in a place separate from the
+                    // package.json dependencies dictionary allows us to operate on them with changelogs
+                    // without affecting other required dependencies that are not part of the pack
+                    // (e.g. sails and its dependencies, for Treeline apps)
+                    var npmDependencies = packMetadata.machineDependencies || [];
                     return exits.success({
                       pack: packMetadata,
                       machines: machineDefs,
                       machineHashes: machineHashes,
-                      packHash: packHash
+                      packHash: packHash,
+                      npmDependencies: npmDependencies
                     });
                   }
                 });
