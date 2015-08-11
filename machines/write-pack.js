@@ -81,6 +81,7 @@ module.exports = {
       postInstallScript: 'node ./postinstall.js',
       indexJsCode: 'module.exports = require(\'machinepack-util\');',
       machines: [{
+        unchanged: false,
         identity: 'do-stuff',
         friendlyName: 'Do stuff',
         description: 'Do stuff given other stuff.',
