@@ -50,6 +50,7 @@ module.exports = {
     var Arrays = require('machinepack-arrays');
     var JSON = require('machinepack-json');
     var Util = require('machinepack-util');
+    var _ = require('lodash');
     var thisPack = require('../');
 
     // Resolve absolute path
@@ -107,29 +108,37 @@ module.exports = {
           error: exits.error,
           success: function(machineDefs) {
 
-            // Generate unique hash for each machine, and for the top-level pack metadata.
-            Util.hash({
-              value: packMetadata,
+            Arrays.map({
+              array: machineDefs,
+              itemExample: {
+                machine: 'some-machine-identity',
+                hash: 'a193fha9319vazm31$139a0'
+              },
+              iteratee: function(_inputs, _exits) {
+                var hash = Util.hash({ value: _inputs.item }).execSync();
+                return _exits.success({
+                  hash: hash,
+                  machine: _inputs.item.identity
+                });
+              }
             }).exec({
               error: exits.error,
-              success: function(packHash){
-
-                Arrays.map({
-                  array: machineDefs,
-                  itemExample: {
-                    machine: 'some-machine-identity',
-                    hash: 'a193fha9319vazm31$139a0'
-                  },
-                  iteratee: function(_inputs, _exits) {
-                    var hash = Util.hash({ value: _inputs.item }).execSync();
-                    return _exits.success({
-                      hash: hash,
-                      machine: _inputs.item.identity
-                    });
-                  }
+              success: function (machineHashes){
+                var hashObj = {
+                  "identity": packMetadata.npmPackageName,
+                  "friendlyName": packMetadata.friendlyName,
+                  "description": packMetadata.description,
+                  "author": packMetadata.author,
+                  "license": packMetadata.license,
+                  "dependencies": packMetadata.machineDependencies,
+                  "machines": _.pluck(machineHashes, 'hash')
+                };
+                // Generate unique hash for each machine, and for the top-level pack metadata.
+                Util.hash({
+                  value: hashObj,
                 }).exec({
                   error: exits.error,
-                  success: function (machineHashes){
+                  success: function(packHash){
                     // The pack-specific dependencies may be stored in the machinepack.dependencies
                     // key of the package.json.  Having them stored in a place separate from the
                     // package.json dependencies dictionary allows us to operate on them with changelogs
