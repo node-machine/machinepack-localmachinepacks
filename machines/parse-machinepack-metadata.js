@@ -32,6 +32,9 @@ module.exports = {
         iconSrc: 'http://machinepack-facebook.org/icon.png',
         version: '0.1.1',
         keywords: ['machine'],
+        private: false,
+        registry: 'http://npmjs.org',
+        usesPublicRegistry: true,
         latestVersionPublishedAt: '2015-01-19T22:26:54.588Z',
         author: 'Marty McFly <marty@mcfly.com>',
         nodeMachineUrl: 'http://node-machine.org/machinepack-foo',
@@ -90,6 +93,9 @@ module.exports = {
     machinepack.npmUrl = _npmMetadata.npmUrl;
     machinepack.contributors = _npmMetadata.contributors;
     machinepack.dependencies = _npmMetadata.dependencies;
+    machinepack.private = _npmMetadata.private;
+    machinepack.registry = _npmMetadata.registry;
+    machinepack.usesPublicRegistry = _npmMetadata.usesPublicRegistry;
 
     // Then parse the raw json to extract the `machinepack` property.
     var _data;
@@ -144,9 +150,13 @@ module.exports = {
         catch (e){ return []; }
       })();
 
-      // Build docs url.
-      machinepack.nodeMachineUrl = util.format('http://node-machine.org/%s', machinepack.identity);
-      machinepack.docsUrl = machinepack.nodeMachineUrl;
+      // Build docs url for public packages.
+      if (!machinepack.private && machinepack.usesPublicRegistry) {
+        machinepack.nodeMachineUrl = util.format('http://node-machine.org/%s',
+          machinepack.identity
+        );
+        machinepack.docsUrl = machinepack.nodeMachineUrl;
+      }
 
       // Extract more metadata from the `machinepack` property in the package.json data.
       machinepack.extendedDescription = latestVersion.machinepack.extendedDescription;
@@ -180,6 +190,7 @@ module.exports = {
     if (!machinepack.identity || !machinepack.machineDir) {
       return exits.notMachinepack();
     }
+
 
     return exits.success(machinepack);
   },
