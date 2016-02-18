@@ -152,7 +152,9 @@ module.exports = {
     if (inputs.fn) {
       try {
         fn = new Function('inputs', 'exits', 'env', inputs.fn);
-        fn = fn.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
+        fn = fn.toString();
+        fn = fn.replace('anonymous(inputs,exits\n/**/)', '(inputs,exits)');
+        fn = fn.replace(/\n/g,'\n  ');
       }
       catch (e){
         return exits.couldNotParseFn(e);
@@ -160,7 +162,9 @@ module.exports = {
     }
     else {
       fn = new Function('inputs', 'exits', util.format('  return exits.%s();', 'success'));
-      fn = fn.toString().replace(/anonymous/, '').replace(/\n/g,'\n  ');
+      fn = fn.toString();
+      fn = fn.replace('anonymous(inputs,exits\n/**/)', '(inputs,exits)');
+      fn = fn.replace(/\n/g,'\n  ');
     }
     // console.log('*********** BUILDING MACHINE CODE ************',util.inspect(inputs,{depth:null}));
 
