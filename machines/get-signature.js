@@ -103,7 +103,8 @@ module.exports = {
                 });
               }
             });
-          }
+          }//</iteratee>
+
         }).exec({
           error: exits.error,
           success: function(machineDefs) {
